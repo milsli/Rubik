@@ -78,7 +78,7 @@ protected:
 
 private:
     void updateData();
-    void PrepareTile(int x, int y, int z, const QColor& color, QByteArray& tile);
+    void PrepareTile(int x, int y, int z, const QColor& color, QByteArray& tile, const int tileSize);
 
 
 
