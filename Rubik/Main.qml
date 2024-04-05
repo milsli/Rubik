@@ -40,7 +40,7 @@ ApplicationWindow {
 
          DirectionalLight {
              id: directionalLight
-             color: Qt.rgba(0.8, 0.2, 0.1, 1.0)
+             // color: rubicSide.color// Qt.rgba(0.8, 0.2, 0.1, 1.0)
          //     ambientColor: Qt.rgba(0.1, 0.1, 0.1, 1.0)
          }
 
@@ -51,28 +51,25 @@ ApplicationWindow {
         //     ambientColor: Qt.rgba(0.2, 0.2, 0.2, 1.0)
         // }
 
+
+
         Model {
             id: gridModel
             visible: true
             scale: Qt.vector3d(150, 150, 150)
 
-            geometry: RubikSide {
-                id: rubicSide
 
-                uv: true
-                uvAdjust: 1
+            geometry:
+                RubikSide {
+                id: rubicSide000
+
+
+                onColorChanged: console.log("new color")
             }
 
             materials: [
-                DefaultMaterial {
-                    Texture {
-                        id: baseColorMap
-                        source: "qt_logo.png"
-                    }
-                    cullMode: DefaultMaterial.NoCulling
-                    diffuseMap: null
-                    specularAmount: 0.5
-                    //diffuseColor: "#a02020"
+                PrincipledMaterial  {
+                    // baseColor: rubicSide.color
                 }
 
             ]

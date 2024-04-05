@@ -2,46 +2,84 @@
 #define RUBIKSIDE_H
 
 #include <QQuick3DGeometry>
+#include <iostream>
+#include <QColor>
+
+#include <QTimerEvent>
 
 class RubikSide : public QQuick3DGeometry
 {
     Q_OBJECT
     QML_NAMED_ELEMENT(RubikSide)
-    // Q_PROPERTY(int counter READ counter WRITE setCounter NOTIFY counterChanged)
-
-    Q_PROPERTY(bool bcolor READ bcolor WRITE setBColor NOTIFY bcolorChanged)
-    Q_PROPERTY(int color READ color WRITE setColor NOTIFY colorChanged)
-    Q_PROPERTY(bool uv READ uv WRITE setUV NOTIFY uvChanged)
-    Q_PROPERTY(float uvAdjust READ uvAdjust WRITE setUVAdjust NOTIFY uvAdjustChanged)
-
+    Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
+    Q_PROPERTY(int x READ x WRITE setX NOTIFY xChanged)
+    Q_PROPERTY(int y READ y WRITE setY NOTIFY yChanged)
+    Q_PROPERTY(int z READ z WRITE setZ NOTIFY zChanged)
 
 public:
     RubikSide();
 
-    /*
-    int counter() const { return counter_; }
-    void setCounter(int counter);
-*/
-    bool bcolor() const { return bcolor_; }
-    void setBColor(bool color);
+    QColor color() const { return color_; }
+    void setColor(QColor color);
 
-    int color() const { return color_; }
-    void setColor(int color);
+    int x() const { return x_;}
+    void setX(int x);
 
-    bool uv() const { return uv_;}
-    void setUV(bool enable);
+    int y() const { return y_; }
+    void setY(int y);
 
-    float uvAdjust() const { return uvAdjust_; }
-    void setUVAdjust(float f);
+    int z() const { return z_; }
+    void setZ(int z);
+
+signals:
+    void colorChanged(QColor color);
+    void xChanged();
+    void yChanged();
+    void zChanged();
+
+protected:
+    void timerEvent(QTimerEvent *event)
+    {
+        static int i = 0;
+
+        std::cerr << "\nTimer ID:" << event->timerId();
+        if(i % 6 == 0)
+        {
+            QColor green("green");
+            setColor(green);
+        }
+        else if(i % 6 == 1)
+        {
+            QColor green("red");
+            setColor(green);
+        }
+        else if(i % 6 == 2)
+        {
+            QColor green("blue");
+            setColor(green);
+        }
+        else if(i % 6 == 3)
+        {
+            QColor green("white");
+            setColor(green);
+        }
+        else if(i % 6 == 4)
+        {
+            QColor green("yellow");
+            setColor(green);
+        }
+        else if(i % 6 == 5)
+        {
+            QColor green("orange");
+            setColor(green);
+        }
+        ++i;
+    }
 
 private:
     void updateData();
+    void PrepareTile(int x, int y, int z, const QColor& color, QByteArray& tile);
 
-signals:
-    void bcolorChanged();
-    void colorChanged();
-    void uvChanged();
-    void uvAdjustChanged();
 
 
 /*    void counterChanged();
@@ -49,11 +87,10 @@ signals:
 */
 
 private:
-    // int counter_;
-    bool bcolor_;
-    int color_;
-    float uvAdjust_ = 0.0f;
-    bool uv_ = false;
+    QColor color_;
+    int x_;
+    int y_;
+    int z_;
 };
 
 #endif // RUBIKSIDE_H
