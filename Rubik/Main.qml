@@ -40,8 +40,8 @@ ApplicationWindow {
 
          DirectionalLight {
              id: directionalLight
-             // color: rubicSide.color// Qt.rgba(0.8, 0.2, 0.1, 1.0)
-         //     ambientColor: Qt.rgba(0.1, 0.1, 0.1, 1.0)
+//             color: Qt.rgba(0.8, 0.2, 0.1, 1.0)
+//             ambientColor: Qt.rgba(0.1, 0.1, 0.1, 1.0)
          }
 
         // PointLight {
@@ -64,14 +64,16 @@ ApplicationWindow {
                 id: rubicSide000
 
 
-                onColorChanged: console.log("new color")
+                // onColorChanged: console.log("new color")
             }
 
             materials: [
                 PrincipledMaterial  {
-                    // baseColor: rubicSide.color
-                }
+                    //baseColor: rubicSide.color
+                    // alphaMode: PrincipledMaterial.Mask
+                    //lighting : PrincipledMaterial.FragmentLighting
 
+                }
             ]
         }
 
